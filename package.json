@@ -1,6 +1,6 @@
 {
   "name": "jii-view",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Jii view",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
