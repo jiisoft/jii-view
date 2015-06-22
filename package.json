@@ -1,6 +1,6 @@
 {
   "name": "jii-view",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Jii view",
   "main": "index.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
@@ -24,8 +24,5 @@
   },
   "devDependencies": {
     "require-all": "0.0.8"
-  },
-  "peerDependencies": {
-    "jii": "*"
   }
 }
