@@ -1,3 +1,8 @@
-
 module.exports = require('jii');
-require('require-all')(__dirname + '/lib');
+
+require('./lib/Theme.js');
+require('./lib/View.js');
+require('./lib/ViewEvent.js');
+require('./lib/ViewRenderer.js');
+require('./lib/WebView.js');
+require('./lib/server/ServerWebView.js');

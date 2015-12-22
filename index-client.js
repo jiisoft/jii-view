@@ -1,10 +1,8 @@
+module.exports = require('jii');
 
-'use strict';
-
-require('jii');
-
-// Load framework files
-require('./lib/ClientWebView');
-require('./lib/Theme');
-require('./lib/ViewEvent');
-require('./lib/ViewRenderer');
+require('./lib/Theme.js');
+require('./lib/View.js');
+require('./lib/ViewEvent.js');
+require('./lib/ViewRenderer.js');
+require('./lib/WebView.js');
+require('./lib/client/ClientWebView.js');

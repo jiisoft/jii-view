@@ -22,8 +22,5 @@
   "homepage": "https://github.com/jiisoft/jii-view",
   "bugs": {
     "url": "https://github.com/jiisoft/jii-view/issues"
-  },
-  "devDependencies": {
-    "require-all": "0.0.8"
   }
 }
