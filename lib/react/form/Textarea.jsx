@@ -7,46 +7,25 @@
 var Jii = require('jii');
 
 /**
- * @class Jii.view.react.form.Input
+ * @class Jii.view.react.form.TextArea
  * @extends Jii.view.react.form.ActiveField
  */
-Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Input.prototype */{
+Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.view.react.form.TextArea.prototype */{
 
     __extends: Jii.view.react.form.ActiveField,
-
-    /**
-     * @type {string}
-     */
-    type: 'text',
-
-    /**
-     * @type {string}
-     */
-    placeholder: '',
-
-    render: function() {
-        if (this.type === 'hidden') {
-            return this.renderInput();
-        }
-
-        return this.__super();
-    },
 
     renderInput: function() {
         var options = {
             id: this._getInputId(),
             ref: 'input',
             name: this._getInputName(),
-            type: this.type,
-            placeholder: this.placeholder,
             className: 'form-control',
-            defaultValue: this.getModelValue(),
             onKeyPress: this._onKeyPress.bind(this),
             onBlur: this._onBlur.bind(this),
             onChange: this._onChange.bind(this)
         };
 
-        return React.createElement('input', Jii._.extend({}, options, this.inputOptions));
+        return React.createElement('textarea', Jii._.extend({}, options, this.inputOptions), this.getModelValue());
     },
 
     getInputValue: function() {
