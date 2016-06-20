@@ -150,7 +150,7 @@ Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Jii.view.react.form
         var options = Jii._.extend({}, this.options);
         options.className = (options.className || '')
             + (this.layout !== this.__static.LAYOUT_DEFAULT ? ' form-' + this.layout : '' );
-        options.onSubmit = this._onSubmit.bind(this);
+        options.onSubmit = Jii.view.react.ReactView.wrapCallback(this.options.onSubmit, this._onSubmit.bind(this));
 
         return React.createElement('form', options, this.children);
     }

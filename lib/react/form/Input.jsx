@@ -40,13 +40,15 @@ Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Inpu
             type: this.type,
             placeholder: this.placeholder,
             className: 'form-control',
-            defaultValue: this.getModelValue(),
-            onKeyPress: this._onKeyPress.bind(this),
-            onBlur: this._onBlur.bind(this),
-            onChange: this._onChange.bind(this)
+            defaultValue: this.getModelValue()
         };
+        options = Jii._.extend(options, this.inputOptions, {
+            onKeyPress: this.__static.wrapCallback(this.inputOptions.onKeyPress, this._onKeyPress.bind(this)),
+            onBlur: this.__static.wrapCallback(this.inputOptions.onBlur, this._onBlur.bind(this)),
+            onChange: this.__static.wrapCallback(this.inputOptions.onChange, this._onChange.bind(this))
+        });
 
-        return React.createElement('input', Jii._.extend({}, options, this.inputOptions));
+        return React.createElement('input', options);
     },
 
     getInputValue: function() {
