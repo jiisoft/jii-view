@@ -6,6 +6,8 @@
  */
 var Jii = require('jii');
 
+var React = require('react');
+
 /**
  * @class Jii.view.react.form.Input
  * @extends Jii.view.react.form.ActiveField
@@ -14,45 +16,63 @@ Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Inpu
 
     __extends: Jii.view.react.form.ActiveField,
 
-    /**
-     * @type {string}
-     */
-    type: 'text',
+    __static: /** @lends Jii.view.react.form.Input */{
 
-    /**
-     * @type {string}
-     */
-    placeholder: '',
+        /**
+         * @alias {Jii.view.react.form.Input.prototype.props}
+         */
+        propTypes: Jii.mergeConfigs(Jii.view.react.form.ActiveField.propTypes, {
 
-    render: function() {
-        if (this.type === 'hidden') {
+            /**
+             * @type {string}
+             */
+            type: React.PropTypes.string,
+
+            /**
+             * @type {string}
+             */
+            placeholder: React.PropTypes.string
+
+        }),
+
+        defaultProps: Jii.mergeConfigs(Jii.view.react.form.ActiveField.defaultProps, {
+            type: 'text',
+            placeholder: ''
+        })
+
+    },
+
+    render() {
+        if (this.props.type === 'hidden') {
             return this.renderInput();
         }
 
         return this.__super();
     },
 
-    renderInput: function() {
-        var options = {
-            id: this._getInputId(),
-            ref: 'input',
-            name: this._getInputName(),
-            type: this.type,
-            placeholder: this.placeholder,
-            className: 'form-control',
-            defaultValue: this.getModelValue()
-        };
-        options = Jii._.extend(options, this.inputOptions, {
-            onKeyPress: this.__static.wrapCallback(this.inputOptions.onKeyPress, this._onKeyPress.bind(this)),
-            onBlur: this.__static.wrapCallback(this.inputOptions.onBlur, this._onBlur.bind(this)),
-            onChange: this.__static.wrapCallback(this.inputOptions.onChange, this._onChange.bind(this))
-        });
-
-        return React.createElement('input', options);
+    renderInput() {
+        return (
+            <input
+                {...this.props.inputOptions}
+                id={this._getInputId()}
+                name={this._getInputName()}
+                type={this.props.type}
+                placeholder={this.props.placeholder}
+                className={[
+                    this.props.inputOptions.className || '',
+                    'form-control'
+                ].join(' ')}
+                onKeyPress={this._onKeyPress}
+                onBlur={this._onBlur}
+                onChange={this._onChange}
+                value={this.state.value || ''}
+            />
+        );
     },
 
-    getInputValue: function() {
-        return ReactDOM.findDOMNode(this.refs.input).value;
+    _onChange(e) {
+        this.setState({value: e.target.value});
+        this.__super(e);
     }
 
 });

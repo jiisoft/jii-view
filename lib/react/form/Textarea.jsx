@@ -14,32 +14,33 @@ Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.view.react.form.T
 
     __extends: Jii.view.react.form.ActiveField,
 
-    componentWillUpdate: function() {
+    componentWillUpdate() {
         ReactDOM.findDOMNode(this.refs.input).value = this.getModelValue();
     },
 
-    renderInput: function() {
-        var options = {
-            id: this._getInputId(),
-            ref: 'input',
-            name: this._getInputName(),
-            className: 'form-control',
-            onKeyPress: this._onKeyPress.bind(this),
-            onBlur: this._onBlur.bind(this),
-            onChange: this._onChange.bind(this),
-            defaultValue: ''
-        };
-        options = Jii._.extend(options, this.inputOptions, {
-            onKeyPress: this.__static.wrapCallback(this.inputOptions.onKeyPress, this._onKeyPress.bind(this)),
-            onBlur: this.__static.wrapCallback(this.inputOptions.onBlur, this._onBlur.bind(this)),
-            onChange: this.__static.wrapCallback(this.inputOptions.onChange, this._onChange.bind(this))
-        });
-
-        return React.createElement('textarea', options);
+    renderInput() {
+        return (
+            <textarea
+                {...this.props.inputOptions}
+                id={this._getInputId()}
+                name={this._getInputName()}
+                type={this.props.type}
+                placeholder={this.props.placeholder}
+                className={[
+                    this.props.inputOptions.className || '',
+                    'form-control'
+                ].join(' ')}
+                onKeyPress={this._onKeyPress}
+                onBlur={this._onBlur}
+                onChange={this._onChange}
+                value={this.getModelValue() || ''}
+            />
+        );
     },
 
-    getInputValue: function() {
-        return ReactDOM.findDOMNode(this.refs.input).value;
+    _onChange(e) {
+        this.setState({value: e.target.value});
+        this.__super(e);
     }
 
 });
