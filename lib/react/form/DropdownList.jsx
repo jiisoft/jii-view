@@ -9,65 +9,62 @@ var Jii = require('jii');
 var React = require('react');
 
 /**
- * @class Jii.view.react.form.Input
+ * @class Jii.view.react.form.DropDownList
  * @extends Jii.view.react.form.ActiveField
  */
-Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Input.prototype */{
+Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends Jii.view.react.form.DropDownList.prototype */{
 
     __extends: Jii.view.react.form.ActiveField,
 
-    __static: /** @lends Jii.view.react.form.Input */{
+    __static: /** @lends Jii.view.react.form.DropDownList */{
 
         /**
-         * @alias {Jii.view.react.form.Input.prototype.props}
+         * @alias {Jii.view.react.form.DropDownList.prototype.props}
          */
         propTypes: Jii.mergeConfigs(Jii.view.react.form.ActiveField.propTypes, {
 
             /**
              * @type {string}
              */
-            type: React.PropTypes.string,
-
-            /**
-             * @type {string}
-             */
-            placeholder: React.PropTypes.string
+            items: React.PropTypes.oneOfType([
+                React.PropTypes.object,
+                React.PropTypes.array
+            ])
 
         }),
 
         defaultProps: Jii.mergeConfigs(Jii.view.react.form.ActiveField.defaultProps, {
-            type: 'text',
-            placeholder: ''
+            items: []
         })
 
     },
 
-    render() {
-        if (this.props.type === 'hidden') {
-            return this.renderInput();
-        }
-
-        return this.__super();
-    },
-
     renderInput() {
         return (
-            <input
+            <select
                 {...this.props.inputOptions}
                 id={this._getInputId()}
                 name={this._getInputName()}
-                type={this.props.type}
-                placeholder={this.props.placeholder}
                 className={[
                     this.props.inputOptions.className || '',
                     'form-control'
                 ].join(' ')}
-                onKeyPress={this._onKeyPress}
                 onFocus={this._onFocus}
                 onBlur={this._onBlur}
                 onChange={this._onChange}
                 value={this.state.value || ''}
-            />
+            >
+                {Jii._.map(this.props.items, (item, value) => {
+                    let label = Jii._.isObject(item) && item.label || item || '';
+                    let optionProps = {
+                        key: value,
+                        value: value,
+                        disabled: Jii._.isObject(item) && item.disabled ? true : false
+                    };
+
+                    return <option {...optionProps}>{label}</option>
+                })}
+            </select>
         );
     },
 

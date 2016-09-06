@@ -14,10 +14,6 @@ Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.view.react.form.T
 
     __extends: Jii.view.react.form.ActiveField,
 
-    componentWillUpdate() {
-        ReactDOM.findDOMNode(this.refs.input).value = this.getModelValue();
-    },
-
     renderInput() {
         return (
             <textarea
@@ -31,9 +27,10 @@ Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.view.react.form.T
                     'form-control'
                 ].join(' ')}
                 onKeyPress={this._onKeyPress}
+                onFocus={this._onFocus}
                 onBlur={this._onBlur}
                 onChange={this._onChange}
-                value={this.getModelValue() || ''}
+                value={this.state.value || ''}
             />
         );
     },

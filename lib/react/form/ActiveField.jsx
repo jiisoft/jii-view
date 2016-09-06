@@ -132,7 +132,17 @@ Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.for
              * and [[validateOnType]] is set true.
              * If not set, it will take the value of [[ActiveForm.validationDelay]].
              */
-            validationDelay: React.PropTypes.number
+            validationDelay: React.PropTypes.number,
+
+            /**
+             * @type {function}
+             */
+            onFocus: React.PropTypes.func,
+
+            /**
+             * @type {function}
+             */
+            onBlur: React.PropTypes.func
         },
 
         defaultProps: {
@@ -164,6 +174,7 @@ Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.for
         this.state.value = this.getModelValue() || '';
 
         this._onKeyPress = this._onKeyPress.bind(this);
+        this._onFocus = this._onFocus.bind(this);
         this._onBlur = this._onBlur.bind(this);
         this._onChange = this._onChange.bind(this);
     },
@@ -180,7 +191,7 @@ Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.for
             >
                 {this.context.form.props.layout === Jii.view.react.form.ActiveForm.LAYOUT_HORIZONTAL ?
                     <span>
-                    {this.renderLabel()}
+                        {this.renderLabel()}
                         {this.renderWrapper(
                         <span>
                             {this.renderInput()}
@@ -189,7 +200,7 @@ Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.for
                             )}
                     </span> :
                     <span>
-                    {this.renderLabel()}
+                        {this.renderLabel()}
                         {this.renderInput()}
                         {this.renderHint()}
                         {this.renderError()}
@@ -361,7 +372,13 @@ Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.for
         this._timer = setTimeout(this._validateAttribute.bind(this), time)
     },
 
+    _onFocus(e) {
+        this.props.onFocus && this.props.onFocus(e);
+    },
+
     _onBlur(e) {
+        this.props.onBlur && this.props.onBlur(e);
+
         var isEnable = this.props.validateOnBlur !== null ? this.props.validateOnBlur : this.context.form.props.validateOnBlur;
         if (!isEnable) {
             return;
