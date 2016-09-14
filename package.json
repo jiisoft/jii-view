@@ -24,6 +24,7 @@
     "url": "https://github.com/jiisoft/jii-view/issues"
   },
   "dependencies": {
+    "lodash": "^4.15.0",
     "node-jsx": "*",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
