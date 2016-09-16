@@ -112,7 +112,12 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Ji
              * and [[validateOnType]] is set true.
              * If [[ActiveField.validationDelay]] is set, its value will take precedence for that input field.
              */
-            validationDelay: React.PropTypes.number
+            validationDelay: React.PropTypes.number,
+
+            /**
+             * @type {function}
+             */
+            onSubmit: React.PropTypes.func
 
         },
 
@@ -152,11 +157,15 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Ji
     _onSubmit(e) {
         e.preventDefault();
 
-        this.props.model.save().then(success => {
-            if (success) {
-                this.props.model.setOldAttributes(null);
-            }
-        });
+        if (this.props.onSubmit) {
+            this.props.onSubmit();
+        } else {
+            this.props.model.save().then(success => {
+                if (success) {
+                    this.props.model.setOldAttributes(null);
+                }
+            });
+        }
     },
 
     render() {
