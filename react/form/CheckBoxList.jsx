@@ -11,7 +11,7 @@ var React = require('react');
 
 /**
  * @class Jii.view.react.form.CheckBoxList
- * @extends Jii.view.react.form.ActiveField
+ * @extends ActiveField
  */
 module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends Jii.view.react.form.CheckBoxList.prototype */{
 
@@ -22,7 +22,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends 
         /**
          * @alias {Jii.view.react.form.CheckBoxList.prototype.props}
          */
-        propTypes: Jii.mergeConfigs(Jii.view.react.form.ActiveField.propTypes, {
+        propTypes: Jii.mergeConfigs(ActiveField.propTypes, {
 
             /**
              * @type {boolean}
@@ -39,7 +39,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends 
 
         }),
 
-        defaultProps: Jii.mergeConfigs(Jii.view.react.form.ActiveField.defaultProps, {
+        defaultProps: Jii.mergeConfigs(ActiveField.defaultProps, {
             inline: false,
             items: []
         })

@@ -8,7 +8,7 @@ var React = require('react');
 
 /**
  * @class Jii.view.react.form.DropDownList
- * @extends Jii.view.react.form.ActiveField
+ * @extends ActiveField
  */
 module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends Jii.view.react.form.DropDownList.prototype */{
 
@@ -19,7 +19,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends 
         /**
          * @alias {Jii.view.react.form.DropDownList.prototype.props}
          */
-        propTypes: Jii.mergeConfigs(Jii.view.react.form.ActiveField.propTypes, {
+        propTypes: Jii.mergeConfigs(ActiveField.propTypes, {
 
             /**
              * @type {string}
@@ -31,7 +31,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends 
 
         }),
 
-        defaultProps: Jii.mergeConfigs(Jii.view.react.form.ActiveField.defaultProps, {
+        defaultProps: Jii.mergeConfigs(ActiveField.defaultProps, {
             items: []
         })
 

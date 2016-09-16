@@ -1,6 +1,10 @@
 'use strict';
 
 var Jii = require('jii');
+var Object = require('jii/base/Object');
+var Model = require('jii-model/base/Model');
+var Collection = require('jii-model/base/Collection');
+var InvalidParamException = require('jii/exceptions/InvalidParamException');
 var _isFunction = require('lodash/isFunction');
 var _uniqueId = require('lodash/uniqueId');
 var _each = require('lodash/each');
@@ -29,8 +33,8 @@ var self = module.exports = Jii.defineClass('Jii.view.react.ReactView', /** @len
         listenModel(component, model, attributes) {
             attributes = attributes || [];
 
-            if (!(model instanceof Jii.base.Model) && !(model instanceof Jii.base.Collection)) {
-                throw new Jii.exceptions.InvalidParamException('Not found model for apply to state.');
+            if (!(model instanceof Model) && !(model instanceof Collection)) {
+                throw new InvalidParamException('Not found model for apply to state.');
             }
 
             // Event handler
@@ -41,17 +45,17 @@ var self = module.exports = Jii.defineClass('Jii.view.react.ReactView', /** @len
             // Mount events
             var createMountHandler = (subscribeMethod, originalCallback) => {
                 return () => {
-                    if (model instanceof Jii.base.Model) {
-                        model[subscribeMethod](Jii.base.Model.EVENT_CHANGE, onModelChange);
-                        model[subscribeMethod](Jii.base.Model.EVENT_CHANGE_ERRORS, onModelChange);
+                    if (model instanceof Model) {
+                        model[subscribeMethod](Model.EVENT_CHANGE, onModelChange);
+                        model[subscribeMethod](Model.EVENT_CHANGE_ERRORS, onModelChange);
                         _each(attributes, attribute => {
-                            model[subscribeMethod](Jii.base.Model.EVENT_CHANGE_NAME + attribute, onModelChange);
+                            model[subscribeMethod](Model.EVENT_CHANGE_NAME + attribute, onModelChange);
                         });
                     }
-                    if (model instanceof Jii.base.Collection) {
-                        model[subscribeMethod](Jii.base.Collection.EVENT_CHANGE, onModelChange);
+                    if (model instanceof Collection) {
+                        model[subscribeMethod](Collection.EVENT_CHANGE, onModelChange);
                         _each(attributes, attribute => {
-                            model[subscribeMethod](Jii.base.Collection.EVENT_CHANGE_NAME + attribute, onModelChange);
+                            model[subscribeMethod](Collection.EVENT_CHANGE_NAME + attribute, onModelChange);
                         });
                     }
                     onModelChange();
@@ -128,5 +132,5 @@ var self = module.exports = Jii.defineClass('Jii.view.react.ReactView', /** @len
 
 });
 
-_extend(self.__static, Jii.base.Object.__static);
-_extend(self.prototype, Jii.base.Object.prototype);
+_extend(self.__static, Object.__static);
+_extend(self.prototype, Object.prototype);

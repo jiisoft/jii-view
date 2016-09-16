@@ -6,6 +6,11 @@
 'use strict';
 
 var Jii = require('jii');
+var File = require('jii/helpers/File');
+var Controller = require('jii/base/Controller');
+var InvalidParamException = require('jii/exceptions/InvalidParamException');
+var ApplicationException = require('jii/exceptions/ApplicationException');
+var InvalidCallException = require('jii/exceptions/InvalidCallException');
 var _trimStart = require('lodash/trimStart');
 var _isObject = require('lodash/isObject');
 var _isFunction = require('lodash/isFunction');
@@ -84,7 +89,7 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
         if (this.hasTemplate(viewFile)) {
             viewFile = this._localize(viewFile);
         } else {
-            throw new Jii.exceptions.InvalidParamException('The view file does not exist: ' + viewFile);
+            throw new InvalidParamException('The view file does not exist: ' + viewFile);
         }
 
         //Jii.trace('Rendering view file: ' + viewFile);
@@ -104,7 +109,7 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
         params = params || {};
 
         if (!this._templates[file]) {
-            throw new Jii.exceptions.ApplicationException('Not found template in path `' + file + '`.');
+            throw new ApplicationException('Not found template in path `' + file + '`.');
         }
 
         params.Jii = Jii;
@@ -154,7 +159,7 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
             file = Jii.app.getViewPath() + '/' + _ltrim(view, '/');
         } else if (view.substr(0, 1) === '/') {
             // e.g. "/site/index"
-            if (context instanceof Jii.base.Controller) {
+            if (context instanceof Controller) {
                 file = context.module.getViewPath() + '/' + _trimStart(view, '/');
             }
         } else if (_isObject(context) && _isFunction(context.getViewPath)) {
@@ -162,20 +167,20 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
         } else {
             var currentViewFile = this.getViewFile();
             if (currentViewFile !== false) {
-                file = Jii.helpers.File.getFileDirectory(currentViewFile) + '/' + view;
+                file = File.getFileDirectory(currentViewFile) + '/' + view;
             }
         }
 
         if (file === null) {
-            throw new Jii.exceptions.InvalidCallException('Unable to resolve view file for view ' + view + ': no active view context.');
+            throw new InvalidCallException('Unable to resolve view file for view ' + view + ': no active view context.');
         }
 
-        if (Jii.helpers.File.getFileExtension(file) !== '') {
+        if (File.getFileExtension(file) !== '') {
             return file;
         }
 
         var path = file + '.' + this.defaultExtension;
-        if (this.defaultExtension !== 'ejs' && !Jii.helpers.File.getFileExtension(path)) {
+        if (this.defaultExtension !== 'ejs' && !File.getFileExtension(path)) {
             path = file + '.ejs';
         }
 
@@ -217,7 +222,7 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
             return file;
         }
 
-        var desiredFile = Jii.helpers.File.getFileDirectory(file) + '/' + language + '/' + Jii.helpers.File.getFileName(file);
+        var desiredFile = File.getFileDirectory(file) + '/' + language + '/' + File.getFileName(file);
         if (this.hasTemplate(desiredFile)) {
             return desiredFile;
         }
@@ -227,7 +232,7 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
             return file;
         }
 
-        desiredFile = Jii.helpers.File.getFileDirectory(file) + '/' + language + '/' + Jii.helpers.File.getFileName(file);
+        desiredFile = File.getFileDirectory(file) + '/' + language + '/' + File.getFileName(file);
         return this.hasTemplate(desiredFile) ? desiredFile : file;
     }
 

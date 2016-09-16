@@ -86,7 +86,7 @@ module.exports = Jii.defineClass('Jii.view.react.ReactRenderer', /** @lends Jii.
         // Set current layout
         var name = view.className();
         if (!this.layout || this.layout.className() !== name) {
-            var container = document.getElementById(Jii.view.react.ReactRenderer.APP_ID_PREFIX + Jii.app.id);
+            var container = document.getElementById(this.__static.APP_ID_PREFIX + Jii.app.id);
 
             params.context = context;
             this.layout = ReactDOM.render(React.createElement(view, params), container);

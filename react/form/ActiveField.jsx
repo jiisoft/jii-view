@@ -1,6 +1,9 @@
 'use strict';
 
 var Jii = require('jii');
+var ActiveForm = require('./ActiveForm');
+var NotSupportedException = require('jii/exceptions/NotSupportedException');
+var InvalidParamException = require('jii/exceptions/InvalidParamException');
 var _isEmpty = require('lodash/isEmpty');
 var _indexOf = require('lodash/indexOf');
 var ReactView = require('../ReactView');
@@ -187,7 +190,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
                     this.hasSuccess() && this.context.form.props.successCssClass || ''
                 ].join(' ')}
             >
-                {this.context.form.props.layout === Jii.view.react.form.ActiveForm.LAYOUT_HORIZONTAL ?
+                {this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL ?
                     <span>
                         {this.renderLabel()}
                         {this.renderWrapper(
@@ -213,7 +216,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
      * @returns {React.Component}
      */
     renderInput() {
-        throw new Jii.exceptions.NotSupportedException('ActiveField is abstract class, renderField is not implemented.');
+        throw new NotSupportedException('ActiveField is abstract class, renderField is not implemented.');
     },
 
     renderLabel() {
@@ -250,7 +253,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
     },
 
     renderError() {
-        if (this.context.form.props.layout === Jii.view.react.form.ActiveForm.LAYOUT_INLINE) {
+        if (this.context.form.props.layout === ActiveForm.LAYOUT_INLINE) {
             return null;
         }
 
@@ -259,7 +262,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
             return null;
         }
 
-        if (this.context.form.props.layout === Jii.view.react.form.ActiveForm.LAYOUT_HORIZONTAL) {
+        if (this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL) {
             return (
                 <div
                     {...this.props.errorOptions}
@@ -293,7 +296,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
             return null;
         }
 
-        if (this.context.form.props.layout === Jii.view.react.form.ActiveForm.LAYOUT_HORIZONTAL) {
+        if (this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL) {
             return (
                 <div
                     {...this.props.hintOptions}
@@ -339,9 +342,9 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
 
     _getLayoutOption(horizontal, inline, def) {
         switch (this.context.form.props.layout) {
-            case Jii.view.react.form.ActiveForm.LAYOUT_HORIZONTAL:
+            case ActiveForm.LAYOUT_HORIZONTAL:
                 return horizontal;
-            case Jii.view.react.form.ActiveForm.LAYOUT_INLINE:
+            case ActiveForm.LAYOUT_INLINE:
                 return inline || horizontal;
         }
         return def || inline || horizontal;
@@ -440,7 +443,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
         var formName = this.context.model.formName();
         var matches = /(^|.*\])([\w\.]+)(\[.*|$)/.exec(this.props.attribute);
         if (!matches) {
-            throw new Jii.exceptions.InvalidParamException('Attribute name must contain word characters only.');
+            throw new InvalidParamException('Attribute name must contain word characters only.');
         }
 
         var prefix = matches[1];
@@ -453,14 +456,14 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
             return formName + prefix + '[' + attribute + ']' + suffix;
         }
 
-        throw new Jii.exceptions.InvalidParamException(this.className() + '::formName() cannot be empty for tabular inputs.');
+        throw new InvalidParamException(this.className() + '::formName() cannot be empty for tabular inputs.');
     },
 
     // @todo move to helpers
     _getAttributeName() {
         var matches = /(^|.*\])([\w\.]+)(\[.*|$)/.exec(this.props.attribute);
         if (!matches) {
-            throw new Jii.exceptions.InvalidParamException('Attribute name must contain word characters only.');
+            throw new InvalidParamException('Attribute name must contain word characters only.');
         }
         return matches[2];
     }

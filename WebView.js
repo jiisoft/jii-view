@@ -6,6 +6,7 @@
 'use strict';
 
 var Jii = require('jii');
+var String = require('jii/helpers/String');
 var _trim = require('lodash/trim');
 var _isFunction = require('lodash/isFunction');
 var _has = require('lodash/has');
@@ -164,7 +165,7 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
      */
     registerMetaTag(options, key) {
         options = options || {};
-        key = key || Jii.helpers.String.hashCode(JSON.stringify(options));
+        key = key || String.hashCode(JSON.stringify(options));
 
         if (!_has(this.metaTags, key)) {
             options[this.__static.DATA_KEY_NAME] = key;
@@ -181,7 +182,7 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
      */
     registerLinkTag(options, key) {
         options = options || {};
-        key = key || Jii.helpers.String.hashCode(JSON.stringify(options));
+        key = key || String.hashCode(JSON.stringify(options));
 
         if (!_has(this.linkTags, key)) {
             options[this.__static.DATA_KEY_NAME] = key;
@@ -199,7 +200,7 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
      */
     registerCss(css, options, key) {
         options = options || {};
-        key = key || Jii.helpers.String.hashCode(css);
+        key = key || String.hashCode(css);
 
         if (!_has(this.css, key)) {
             options[this.__static.DATA_KEY_NAME] = key;
@@ -222,7 +223,7 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
         key = key || null;
 
         url = Jii.getAlias(url);
-        key = key || Jii.helpers.String.hashCode(url);
+        key = key || String.hashCode(url);
 
         if (!_has(this.cssFiles, key)) {
             options.href = url;
@@ -263,7 +264,7 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
         }
 
         position = position || this.__static.POS_READY;
-        key = key || Jii.helpers.String.hashCode(js);
+        key = key || String.hashCode(js);
 
         this.js[position] = this.js[position] || {};
         if (!_has(this.js[position], key)) {
@@ -296,7 +297,7 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
     registerJsFile(url, options, key) {
         url = Jii.getAlias(url);
         options = options || {};
-        key = key || Jii.helpers.String.hashCode(url);
+        key = key || String.hashCode(url);
 
         var position = options.position || this.__static.POS_END;
         delete options.position;

@@ -86,8 +86,8 @@ module.exports = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.S
             _values(this.linkTags),
             _values(this.cssFiles),
             _values(this.css),
-            _values(this.jsFiles[Jii.view.WebView.POS_HEAD]),
-            _values(this.js[Jii.view.WebView.POS_HEAD])
+            _values(this.jsFiles[WebView.POS_HEAD]),
+            _values(this.js[WebView.POS_HEAD])
         ).join('\n');
     },
 
@@ -98,8 +98,8 @@ module.exports = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.S
      */
     _renderBodyBeginHtml() {
         return [].concat(
-            _values(this.jsFiles[Jii.view.WebView.POS_BEGIN]),
-            _values(this.js[Jii.view.WebView.POS_BEGIN])
+            _values(this.jsFiles[WebView.POS_BEGIN]),
+            _values(this.js[WebView.POS_BEGIN])
         ).join('\n');
     },
 
@@ -110,10 +110,10 @@ module.exports = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.S
      */
     _renderBodyEndHtml() {
         return [].concat(
-            _values(this.jsFiles[Jii.view.WebView.POS_END]),
-            _values(this.js[Jii.view.WebView.POS_END]),
-            _values(this.js[Jii.view.WebView.POS_READY]),
-            _values(this.js[Jii.view.WebView.POS_LOAD])
+            _values(this.jsFiles[WebView.POS_END]),
+            _values(this.js[WebView.POS_END]),
+            _values(this.js[WebView.POS_READY]),
+            _values(this.js[WebView.POS_LOAD])
         ).join('\n');
     },
 
@@ -141,11 +141,11 @@ module.exports = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.S
 
     _registerJsInternal(key, position, code, options) {
         switch (position) {
-            case Jii.view.WebView.POS_READY:
+            case WebView.POS_READY:
                 code = "jQuery(document).ready(function () {\n" + code + "\n});";
                 break;
 
-            case Jii.view.WebView.POS_LOAD:
+            case WebView.POS_LOAD:
                 code = "jQuery(window).load(function () {\n" + code + "\n});";
                 break;
         }

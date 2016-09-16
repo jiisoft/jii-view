@@ -1,6 +1,9 @@
 'use strict';
 
 var Jii = require('jii');
+var DataColumn = require('./DataColumn');
+var Model = require('jii-model/base/Model');
+var InvalidConfigException = require('jii/exceptions/InvalidConfigException');
 var _isEmpty = require('lodash/isEmpty');
 var _isFunction = require('lodash/isFunction');
 var _isObject = require('lodash/isObject');
@@ -29,7 +32,7 @@ module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.
         /**
          * @alias {Jii.view.react.grid.GridView.prototype.props}
          */
-        propTypes: Jii.mergeConfigs(Jii.view.react.widgets.BaseListView.propTypes, {
+        propTypes: Jii.mergeConfigs(BaseListView.propTypes, {
 
             /**
              * @type {string} the default data column class if the class name is not explicitly specified when configuring a data column.
@@ -144,7 +147,7 @@ module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.
             layout: React.PropTypes.string
         }),
 
-        defaultProps: Jii.mergeConfigs(Jii.view.react.widgets.BaseListView.defaultProps, {
+        defaultProps: Jii.mergeConfigs(BaseListView.defaultProps, {
             dataColumnClassName: null,
             caption: null,
             captionOptions: {},
@@ -385,7 +388,7 @@ module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.
                 column = this._createDataColumn(column, index);
             } else {
                 column = Jii.createObject(_extend({
-                    className: this.props.dataColumnClassName || Jii.view.react.grid.DataColumn.className(),
+                    className: this.props.dataColumnClassName || DataColumn.className(),
                     grid: this,
                     key: (column.attribute || 'c') + index
                 }, column));
@@ -409,11 +412,11 @@ module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.
     _createDataColumn(text, index) {
         var matches = /^([^:]+)(:(\w*))?(:(.*))?/.exec(text);
         if (!matches) {
-            throw new Jii.exceptions.InvalidConfigException('The column must be specified in the format of "attribute", "attribute:format" or "attribute:format:label"');
+            throw new InvalidConfigException('The column must be specified in the format of "attribute", "attribute:format" or "attribute:format:label"');
         }
 
         return Jii.createObject({
-            className: this.props.dataColumnClassName || Jii.view.react.grid.DataColumn.className(),
+            className: this.props.dataColumnClassName || DataColumn.className(),
             grid: this,
             key: matches[1] + '-' + index,
             attribute: matches[1],
@@ -431,7 +434,7 @@ module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.
         if (!model && this.props.collection.modelClass) {
             model = this.props.collection.createModel();
         }
-        if (model instanceof Jii.base.Model) {
+        if (model instanceof Model) {
             this._columns = model.attributes();
         } else if (_isObject(model)) {
             this._columns = _keys(model);

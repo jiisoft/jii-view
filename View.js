@@ -6,6 +6,9 @@
 'use strict';
 
 var Jii = require('jii');
+var IRenderer = require('./IRenderer');
+var InvalidConfigException = require('jii/exceptions/InvalidConfigException');
+var ViewEvent = require('./ViewEvent');
 var _isString = require('lodash/isString');
 var _isFunction = require('lodash/isFunction');
 var Component = require('jii/base/Component');
@@ -59,7 +62,7 @@ module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.proto
     },
 
     getRenderer(view) {
-        if (this.renderer instanceof Jii.view.IRenderer) {
+        if (this.renderer instanceof IRenderer) {
             return this.renderer;
         }
 
@@ -77,13 +80,13 @@ module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.proto
         }
 
         if (name) {
-            if (!(this.renderers[name] instanceof Jii.view.IRenderer)) {
+            if (!(this.renderers[name] instanceof IRenderer)) {
                 this.renderers[name] = Jii.createObject(this.renderers[name]);
             }
             return this.renderers[name];
         }
 
-        throw new Jii.exceptions.InvalidConfigException('Not found renderer for view');
+        throw new InvalidConfigException('Not found renderer for view');
     },
 
     /**
@@ -116,7 +119,7 @@ module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.proto
      * @returns {Promise.<boolean>}
      */
 	beforeRender(viewFile, context, params) {
-		var event = new Jii.view.ViewEvent({
+		var event = new ViewEvent({
 			viewFile: viewFile,
 			params: params
 		});
@@ -135,7 +138,7 @@ module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.proto
      */
 	afterRender(viewFile, context, params, output) {
 		if (this.hasEventHandlers(this.__static.EVENT_AFTER_RENDER)) {
-			var event = new Jii.view.ViewEvent({
+			var event = new ViewEvent({
 				viewFile: viewFile,
 				params: params,
 				output: output

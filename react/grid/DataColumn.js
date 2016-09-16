@@ -1,6 +1,8 @@
 'use strict';
 
 var Jii = require('jii');
+var Collection = require('jii-model/base/Collection');
+var Model = require('jii-model/base/Model');
 var _isFunction = require('lodash/isFunction');
 var _startCase = require('lodash/startCase');
 var Column = require('./Column');
@@ -86,15 +88,15 @@ module.exports = Jii.defineClass('Jii.view.react.grid.DataColumn', /** @lends Ji
         var label = this.label;
         if (label === null) {
             var provider = this.grid.props.collection;
-            if (provider instanceof Jii.base.Collection && provider.modelClass) {
+            if (provider instanceof Collection && provider.modelClass) {
                 var emptyModel = provider.createModel();
-                if (emptyModel instanceof Jii.base.Model) {
+                if (emptyModel instanceof Model) {
                     label = emptyModel.getAttributeLabel(this.attribute);
                 }
             }
             if (label === null) {
                 var model = this.grid.props.collection[0];
-                if (model instanceof Jii.base.Model) {
+                if (model instanceof Model) {
                     label = model.getAttributeLabel(this.attribute);
                 } else {
                     label = _startCase(this.attribute);

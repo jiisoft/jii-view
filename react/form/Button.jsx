@@ -1,6 +1,7 @@
 'use strict';
 
 var Jii = require('jii');
+var ActiveForm = require('./ActiveForm');
 var ReactView = require('../ReactView');
 var React = require('react');
 
@@ -62,7 +63,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.vi
             >
                 <div
                     className={
-                        this.context.form.props.layout === Jii.view.react.form.ActiveForm.LAYOUT_HORIZONTAL ?
+                        this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL ?
                             'col-sm-offset-' +  + this.context.form.props.cols[0] + ' col-sm-' + this.context.form.props.cols[1] :
                             ''
                     }

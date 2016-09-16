@@ -6,6 +6,8 @@
 'use strict';
 
 var Jii = require('jii');
+var WebView = require('../../WebView');
+var ReactRenderer = require('../ReactRenderer');
 var _values = require('lodash/values');
 var IRenderer = require('../../IRenderer');
 var React = require('react');
@@ -58,22 +60,22 @@ module.exports = Jii.defineClass('Jii.view.react.ReactServerRenderer', /** @lend
                 _values(webView.linkTags),
                 _values(webView.cssFiles),
                 _values(webView.css),
-                _values(webView.jsFiles[Jii.view.WebView.POS_HEAD]),
-                _values(webView.js[Jii.view.WebView.POS_HEAD])
+                _values(webView.jsFiles[WebView.POS_HEAD]),
+                _values(webView.js[WebView.POS_HEAD])
             ).join('\n'))
             .replace('{bodyBegin}', [].concat(
-                _values(webView.jsFiles[Jii.view.WebView.POS_BEGIN]),
-                _values(webView.js[Jii.view.WebView.POS_BEGIN])
+                _values(webView.jsFiles[WebView.POS_BEGIN]),
+                _values(webView.js[WebView.POS_BEGIN])
             ).join('\n'))
             .replace('{layout}', this.layoutTemplate
-                .replace('{id}', Jii.view.react.ReactRenderer.APP_ID_PREFIX + Jii.app.id)
+                .replace('{id}', ReactRenderer.APP_ID_PREFIX + Jii.app.id)
                 .replace('{content}', layout)
             )
             .replace('{bodyEnd}', [].concat(
-                _values(webView.jsFiles[Jii.view.WebView.POS_END]),
-                _values(webView.js[Jii.view.WebView.POS_END]),
-                _values(webView.js[Jii.view.WebView.POS_READY]),
-                _values(webView.js[Jii.view.WebView.POS_LOAD])
+                _values(webView.jsFiles[WebView.POS_END]),
+                _values(webView.js[WebView.POS_END]),
+                _values(webView.js[WebView.POS_READY]),
+                _values(webView.js[WebView.POS_LOAD])
             ).join('\n'))
     }
 
