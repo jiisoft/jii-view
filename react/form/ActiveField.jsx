@@ -1,7 +1,7 @@
 'use strict';
 
 var Jii = require('jii');
-var ActiveForm = require('./ActiveForm');
+var ActiveForm = require('./ActiveForm.jsx');
 var NotSupportedException = require('jii/exceptions/NotSupportedException');
 var InvalidParamException = require('jii/exceptions/InvalidParamException');
 var _isEmpty = require('lodash/isEmpty');
@@ -116,12 +116,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
             validateOnChange: React.PropTypes.bool,
 
             /**
-             * @type {boolean} whether to perform validation when the input field loses focus.
-             * If not set, it will take the value of [[ActiveForm.validateOnBlur]].
-             */
-            validateOnBlur: React.PropTypes.bool,
-
-            /**
              * @type {boolean} whether to perform validation while the user is typing in the input field.
              * If not set, it will take the value of [[ActiveForm.validateOnType]].
              * @see validationDelay
@@ -133,17 +127,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
              * and [[validateOnType]] is set true.
              * If not set, it will take the value of [[ActiveForm.validationDelay]].
              */
-            validationDelay: React.PropTypes.number,
-
-            /**
-             * @type {function}
-             */
-            onFocus: React.PropTypes.func,
-
-            /**
-             * @type {function}
-             */
-            onBlur: React.PropTypes.func
+            validationDelay: React.PropTypes.number
         },
 
         defaultProps: {
@@ -157,7 +141,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
             hintOptions: {},
             enableValidation: true,
             validateOnChange: null,
-            validateOnBlur: null,
             validateOnType: null,
             validationDelay: null
         }
@@ -350,66 +333,53 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
         return def || inline || horizontal;
     },
 
-    _onKeyPress(e) {
-        var isEnable = this.props.validateOnType !== null ? this.props.validateOnType : this.context.form.props.validateOnType;
-        if (!isEnable) {
-            return;
-        }
+    /**
+     *
+     * @param {*} value
+     * @param {boolean} isTypeChange
+     */
+    validateValue(value, isTypeChange) {
+        if (isTypeChange) {
+            var isTypeEnable = this.props.validateOnType !== null ? this.props.validateOnType : this.context.form.props.validateOnType;
+            if (!isTypeEnable) {
+                return;
+            }
 
-        if (_indexOf([9, 16, 17, 18, 20, 37, 38, 39, 40, 91], e.which) !== -1 ) {
-            return;
-        }
+            if (_indexOf([9, 16, 17, 18, 20, 37, 38, 39, 40, 91], e.which) !== -1 ) {
+                return;
+            }
 
-        // Only for clear error
-        if (!this.hasError()) {
-            return;
-        }
+            // Only for clear error
+            if (!this.hasError()) {
+                return;
+            }
 
-        // Delay validation
-        if (this._timer) {
-            clearTimeout(this._timer);
+            // Delay validation
+            if (this._timer) {
+                clearTimeout(this._timer);
+            }
+            var time = this.props.validationDelay !== null ? this.props.validationDelay : this.context.form.props.validationDelay;
+            this._timer = setTimeout(() => {
+                this._validate(value)
+            }, time);
+        } else {
+            var isChangeEnable = this.props.validateOnChange !== null ? this.props.validateOnChange : this.context.form.props.validateOnChange;
+            if (isChangeEnable) {
+                this._validate(value);
+            }
         }
-        var time = this.props.validationDelay !== null ? this.props.validationDelay : this.context.form.props.validationDelay;
-        this._timer = setTimeout(this._validateAttribute.bind(this), time)
     },
 
-    _onFocus(e) {
-        this.props.onFocus && this.props.onFocus(e);
-    },
-
-    _onBlur(e) {
-        this.props.onBlur && this.props.onBlur(e);
-
-        var isEnable = this.props.validateOnBlur !== null ? this.props.validateOnBlur : this.context.form.props.validateOnBlur;
-        if (!isEnable) {
-            return;
-        }
-
-        this._validateAttribute();
-    },
-
-    _onChange(e) {
-        var isEnable = this.props.validateOnChange !== null ? this.props.validateOnChange : this.context.form.props.validateOnChange;
-        if (!isEnable) {
-            return;
-        }
-
-        // Only for clear error
-        if (!this.hasError()) {
-            return;
-        }
-
-        this._validateAttribute();
-    },
-
-    _validateAttribute() {
+    /**
+     * @param {*} newValue
+     */
+    _validate(newValue) {
         var isEnable = this.props.enableValidation !== null ? this.props.enableValidation : this.context.form.props.enableValidation;
         if (!isEnable) {
             return;
         }
 
         var previousValue = this.getModelValue();
-        var newValue = this.state.value;
 
         // Check changes
         if (previousValue === newValue) {

@@ -6,7 +6,7 @@ var _indexOf = require('lodash/indexOf');
 var _map = require('lodash/map');
 var _filter = require('lodash/filter');
 var _uniq = require('lodash/uniq');
-var ActiveField = require('./ActiveField');
+var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
 
 /**
@@ -81,8 +81,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends 
                     checked={_indexOf([].concat(this.state.value), value) !== -1}
                     disabled={isDisabled}
                     value={value}
-                    onFocus={this._onFocus}
-                    onBlur={this._onBlur}
                     onChange={this._onChange}
                 /> {label}
             </label>
@@ -96,9 +94,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends 
         } else {
             values = _filter(values, v => v !== e.target.value);
         }
+        values = _uniq(values);
 
-        this.setState({value: _uniq(values)});
-        this.__super(e);
+        this.setState({value: values});
+        this.validateValue(values);
+        this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, values);
     }
 
 });

@@ -1,12 +1,12 @@
 'use strict';
 
 var Jii = require('jii');
-var ActiveField = require('./ActiveField');
+var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
 
 /**
  * @class Jii.view.react.form.Input
- * @extends ActiveField
+ * @extends Jii.view.react.form.ActiveField
  */
 module.exports = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Input.prototype */{
 
@@ -58,8 +58,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.vie
                     this.props.inputOptions.className || '',
                     'form-control'
                 ].join(' ')}
-                onKeyPress={this._onKeyPress}
-                onFocus={this._onFocus}
                 onBlur={this._onBlur}
                 onChange={this._onChange}
                 value={this.state.value || ''}
@@ -67,9 +65,20 @@ module.exports = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.vie
         );
     },
 
+    _onBlur: function(e) {
+        let value = e.target.value;
+
+        this.setState({value: value});
+        this.validateValue(value, false);
+        this.props.inputOptions.onBlur && this.props.inputOptions.onBlur(e);
+    },
+
     _onChange(e) {
-        this.setState({value: e.target.value});
-        this.__super(e);
+        let value = e.target.value;
+
+        this.setState({value: value});
+        this.validateValue(value, true);
+        this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 
 });

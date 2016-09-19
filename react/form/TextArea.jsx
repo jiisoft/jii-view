@@ -1,7 +1,7 @@
 'use strict';
 
 var Jii = require('jii');
-var ActiveField = require('./ActiveField');
+var ActiveField = require('./ActiveField.jsx');
 
 /**
  * @class Jii.view.react.form.TextArea
@@ -23,8 +23,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.
                     this.props.inputOptions.className || '',
                     'form-control'
                 ].join(' ')}
-                onKeyPress={this._onKeyPress}
-                onFocus={this._onFocus}
                 onBlur={this._onBlur}
                 onChange={this._onChange}
                 value={this.state.value || ''}
@@ -32,9 +30,20 @@ module.exports = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.
         );
     },
 
+    _onBlur: function(e) {
+        let value = e.target.value;
+
+        this.setState({value: value});
+        this.validateValue(value);
+        this.props.inputOptions.onBlur && this.props.inputOptions.onBlur(e);
+    },
+
     _onChange(e) {
-        this.setState({value: e.target.value});
-        this.__super(e);
+        let value = e.target.value;
+
+        this.setState({value: value});
+        this.validateValue(value, true);
+        this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 
 });

@@ -3,7 +3,7 @@
 var Jii = require('jii');
 var _isObject = require('lodash/isObject');
 var _map = require('lodash/map');
-var ActiveField = require('./ActiveField');
+var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
 
 /**
@@ -47,8 +47,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends 
                     this.props.inputOptions.className || '',
                     'form-control'
                 ].join(' ')}
-                onFocus={this._onFocus}
-                onBlur={this._onBlur}
                 onChange={this._onChange}
                 value={this.state.value || ''}
             >
@@ -67,8 +65,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends 
     },
 
     _onChange(e) {
-        this.setState({value: e.target.value});
-        this.__super(e);
+        let value = e.target.value;
+
+        this.setState({value: value});
+        this.validateValue(value);
+        this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 
 });

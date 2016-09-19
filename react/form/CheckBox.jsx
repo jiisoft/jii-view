@@ -1,7 +1,7 @@
 'use strict';
 
 var Jii = require('jii');
-var ActiveField = require('./ActiveField');
+var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
 
 /**
@@ -43,8 +43,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.
                         type="checkbox"
                         name={this._getInputName()}
                         checked={this.state.value == true}
-                        onFocus={this._onFocus}
-                        onBlur={this._onBlur}
                         onChange={this._onChange}
                     /> {this.context.model.getAttributeLabel(this._getAttributeName())}
                 </label>
@@ -53,8 +51,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.
     },
 
     _onChange(e) {
-        this.setState({value: e.target.checked});
-        this.__super(e);
+        let value = e.target.checked;
+
+        this.setState({value: value});
+        this.validateValue(value);
+        this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 
 });

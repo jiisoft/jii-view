@@ -1,7 +1,7 @@
 'use strict';
 
 var Jii = require('jii');
-var ActiveForm = require('./ActiveForm');
+var ActiveForm = require('./ActiveForm.jsx');
 var ReactView = require('../ReactView');
 var React = require('react');
 

@@ -3,7 +3,7 @@
 var Jii = require('jii');
 var _isObject = require('lodash/isObject');
 var _map = require('lodash/map');
-var ActiveField = require('./ActiveField');
+var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
 
 /**
@@ -78,8 +78,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii
                     checked={this.state.value == value}
                     disabled={isDisabled}
                     value={value}
-                    onFocus={this._onFocus}
-                    onBlur={this._onBlur}
                     onChange={this._onChange}
                 /> {label}
             </label>
@@ -87,8 +85,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii
     },
 
     _onChange(e) {
-        this.setState({value: e.target.value});
-        this.__super(e);
+        let value = e.target.value;
+
+        this.setState({value: value});
+        this.validateValue(value);
+        this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 
 });
