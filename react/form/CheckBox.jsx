@@ -12,6 +12,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.
 
     __extends: ActiveField,
 
+    init() {
+        this.__super();
+        this._onChange = this._onChange.bind(this);
+    },
+
     renderLabel() {
         return null;
     },

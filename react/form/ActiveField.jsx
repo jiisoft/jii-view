@@ -156,11 +156,6 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
 
     init() {
         this.state.value = this.getModelValue() || '';
-
-        this._onKeyPress = this._onKeyPress.bind(this);
-        this._onFocus = this._onFocus.bind(this);
-        this._onBlur = this._onBlur.bind(this);
-        this._onChange = this._onChange.bind(this);
     },
 
     render() {

@@ -43,6 +43,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii
 
     },
 
+    init() {
+        this.__super();
+        this._onChange = this._onChange.bind(this);
+    },
+
     renderInput() {
         return (
             <div

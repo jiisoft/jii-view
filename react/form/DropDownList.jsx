@@ -37,6 +37,11 @@ module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends 
 
     },
 
+    init() {
+        this.__super();
+        this._onChange = this._onChange.bind(this);
+    },
+
     renderInput() {
         return (
             <select

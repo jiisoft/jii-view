@@ -137,6 +137,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Ji
     },
 
     init() {
+        this.__super();
         this._onSubmit = this._onSubmit.bind(this);
     },
 

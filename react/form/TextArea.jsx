@@ -11,6 +11,12 @@ module.exports = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.
 
     __extends: ActiveField,
 
+    init() {
+        this.__super();
+        this._onBlur = this._onBlur.bind(this);
+        this._onChange = this._onChange.bind(this);
+    },
+
     renderInput() {
         return (
             <textarea

@@ -38,6 +38,12 @@ module.exports = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.vie
 
     },
 
+    init() {
+        this.__super();
+        this._onBlur = this._onBlur.bind(this);
+        this._onChange = this._onChange.bind(this);
+    },
+
     render() {
         if (this.props.type === 'hidden') {
             return this.renderInput();
