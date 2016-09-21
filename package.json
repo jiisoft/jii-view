@@ -1,6 +1,6 @@
 {
   "name": "jii-view",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "description": "Jii view",
   "main": "index.js",
   "browser": "index-client.js",
