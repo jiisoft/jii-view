@@ -52,7 +52,7 @@ module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.proto
 	/**
 	 * @type {object}
 	 */
-	renderers: {
+	renderers: process.env.JII_NO_NAMESPACE ? null : {
         react: {
             className: Jii.isNode ? 'Jii.view.react.ReactServerRenderer' : 'Jii.view.react.ReactRenderer'
         },
