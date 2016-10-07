@@ -11,7 +11,7 @@ var React = require('react');
  * @class Jii.view.react.widgets.BaseListView
  * @extends Jii.view.react.ReactView
  */
-module.exports = Jii.defineClass('Jii.view.react.widgets.BaseListView', /** @lends Jii.view.react.widgets.BaseListView.prototype */{
+var BaseListView = Jii.defineClass('Jii.view.react.widgets.BaseListView', /** @lends Jii.view.react.widgets.BaseListView.prototype */{
 
     __extends: ReactView,
 
@@ -38,7 +38,7 @@ module.exports = Jii.defineClass('Jii.view.react.widgets.BaseListView', /** @len
              * @type {object} the configuration for the pager widget. By default, [[LinkPager]] will be
              * used to render the pager. You can use a different widget class by configuring the "class" element.
              * Note that the widget must support the `pagination` property which will be populated with the
-             * [[\jii\data\BaseDataProvider.pagination|pagination]] value of the [[dataProvider]].
+             * [[\jii\data\DataProvider.pagination|pagination]] value of the [[dataProvider]].
              */
             pager: React.PropTypes.object,
 
@@ -46,7 +46,7 @@ module.exports = Jii.defineClass('Jii.view.react.widgets.BaseListView', /** @len
              * @type {object} the configuration for the sorter widget. By default, [[LinkSorter]] will be
              * used to render the sorter. You can use a different widget class by configuring the "class" element.
              * Note that the widget must support the `sort` property which will be populated with the
-             * [[\jii\data\BaseDataProvider.sort|sort]] value of the [[dataProvider]].
+             * [[\jii\data\DataProvider.sort|sort]] value of the [[dataProvider]].
              */
             sorter: React.PropTypes.object,
 
@@ -208,3 +208,5 @@ module.exports = Jii.defineClass('Jii.view.react.widgets.BaseListView', /** @len
     }
 
 });
+
+module.exports = BaseListView;

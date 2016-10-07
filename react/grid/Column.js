@@ -10,7 +10,7 @@ var Object = require('jii/base/Object');
  * @class Jii.view.react.grid.Column
  * @extends Jii.base.Object
  */
-module.exports = Jii.defineClass('Jii.view.react.grid.Column', /** @lends Jii.view.react.grid.Column.prototype */{
+var Column = Jii.defineClass('Jii.view.react.grid.Column', /** @lends Jii.view.react.grid.Column.prototype */{
 
     __extends: Object,
 
@@ -143,3 +143,5 @@ module.exports = Jii.defineClass('Jii.view.react.grid.Column', /** @lends Jii.vi
     }
 
 });
+
+module.exports = Column;

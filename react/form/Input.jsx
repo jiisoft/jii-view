@@ -8,7 +8,7 @@ var React = require('react');
  * @class Jii.view.react.form.Input
  * @extends Jii.view.react.form.ActiveField
  */
-module.exports = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Input.prototype */{
+var Input = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.react.form.Input.prototype */{
 
     __extends: ActiveField,
 
@@ -88,3 +88,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.vie
     }
 
 });
+
+module.exports = Input;

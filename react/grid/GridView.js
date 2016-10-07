@@ -23,7 +23,7 @@ var React = require('react');
  * @class Jii.view.react.grid.GridView
  * @extends Jii.view.react.widgets.BaseListView
  */
-module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.view.react.grid.GridView.prototype */{
+var GridView = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.view.react.grid.GridView.prototype */{
 
     __extends: BaseListView,
 
@@ -442,3 +442,5 @@ module.exports = Jii.defineClass('Jii.view.react.grid.GridView', /** @lends Jii.
     }
 
 });
+
+module.exports = GridView;

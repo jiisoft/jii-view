@@ -10,7 +10,7 @@ var React = require('react');
  * @class Jii.view.react.form.RadioList
  * @extends ActiveField
  */
-module.exports = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii.view.react.form.RadioList.prototype */{
+var RadioList = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii.view.react.form.RadioList.prototype */{
 
     __extends: ActiveField,
 
@@ -98,3 +98,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii
     }
 
 });
+
+module.exports = RadioList;

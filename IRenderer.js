@@ -14,7 +14,7 @@ var Object = require('jii/base/Object');
  * @class Jii.view.IRenderer
  * @extends Jii.base.Object
  */
-module.exports = Jii.defineClass('Jii.view.IRenderer', /** @lends Jii.view.IRenderer.prototype */{
+var IRenderer = Jii.defineClass('Jii.view.IRenderer', /** @lends Jii.view.IRenderer.prototype */{
 
     __extends: Object,
 
@@ -43,3 +43,5 @@ module.exports = Jii.defineClass('Jii.view.IRenderer', /** @lends Jii.view.IRend
     }
 
 });
+
+module.exports = IRenderer;

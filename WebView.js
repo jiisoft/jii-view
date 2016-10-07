@@ -36,7 +36,7 @@ var View = require('./View');
  * @class Jii.view.WebView
  * @extends Jii.view.View
  */
-module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView.prototype */{
+var WebView = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView.prototype */{
 
     __extends: View,
 
@@ -360,3 +360,5 @@ module.exports = Jii.defineClass('Jii.view.WebView', /** @lends Jii.view.WebView
     }
 
 });
+
+module.exports = WebView;

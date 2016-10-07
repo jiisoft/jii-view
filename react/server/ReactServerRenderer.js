@@ -18,7 +18,7 @@ var ReactDOMServer = require('react-dom/server');
  * @class Jii.view.react.ReactServerRenderer
  * @extends Jii.view.IRenderer
  */
-module.exports = Jii.defineClass('Jii.view.react.ReactServerRenderer', /** @lends Jii.view.react.ReactServerRenderer.prototype */{
+var ReactServerRenderer = Jii.defineClass('Jii.view.react.ReactServerRenderer', /** @lends Jii.view.react.ReactServerRenderer.prototype */{
 
     __extends: IRenderer,
 
@@ -80,3 +80,5 @@ module.exports = Jii.defineClass('Jii.view.react.ReactServerRenderer', /** @lend
     }
 
 });
+
+module.exports = ReactServerRenderer;

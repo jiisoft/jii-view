@@ -16,7 +16,7 @@ var WebView = require('../WebView');
  * @class Jii.view.ServerWebView
  * @extends Jii.view.WebView
  */
-module.exports = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.ServerWebView.prototype */{
+var ServerWebView = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.ServerWebView.prototype */{
 
     __extends: WebView,
 
@@ -173,3 +173,5 @@ module.exports = Jii.defineClass('Jii.view.ServerWebView', /** @lends Jii.view.S
     }
 
 });
+
+module.exports = ServerWebView;

@@ -8,7 +8,7 @@ var React = require('react');
  * @class Jii.view.react.form.ActiveForm
  * @extends Jii.view.react.ReactView
  */
-module.exports = Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Jii.view.react.form.ActiveForm.prototype */{
+var ActiveForm = Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Jii.view.react.form.ActiveForm.prototype */{
 
     __extends: ReactView,
 
@@ -180,3 +180,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveForm', /** @lends Ji
     }
 
 });
+
+module.exports = ActiveForm;

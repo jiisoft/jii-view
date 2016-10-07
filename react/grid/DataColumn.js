@@ -11,7 +11,7 @@ var Column = require('./Column');
  * @class Jii.view.react.grid.DataColumn
  * @extends Jii.view.react.grid.Column
  */
-module.exports = Jii.defineClass('Jii.view.react.grid.DataColumn', /** @lends Jii.view.react.grid.DataColumn.prototype */{
+var DataColumn = Jii.defineClass('Jii.view.react.grid.DataColumn', /** @lends Jii.view.react.grid.DataColumn.prototype */{
 
     __extends: Column,
 
@@ -150,3 +150,5 @@ module.exports = Jii.defineClass('Jii.view.react.grid.DataColumn', /** @lends Ji
     }
 
 });
+
+module.exports = DataColumn;

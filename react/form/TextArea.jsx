@@ -7,7 +7,7 @@ var ActiveField = require('./ActiveField.jsx');
  * @class Jii.view.react.form.TextArea
  * @extends Jii.view.react.form.ActiveField
  */
-module.exports = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.view.react.form.TextArea.prototype */{
+var TextArea = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.view.react.form.TextArea.prototype */{
 
     __extends: ActiveField,
 
@@ -53,3 +53,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.
     }
 
 });
+
+module.exports = TextArea;

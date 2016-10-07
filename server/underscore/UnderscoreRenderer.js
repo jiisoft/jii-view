@@ -23,7 +23,7 @@ var IRenderer = require('../../IRenderer');
  * @class Jii.view.underscore.UnderscoreRenderer
  * @extends Jii.view.IRenderer
  */
-module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @lends Jii.view.underscore.UnderscoreRenderer.prototype */{
+var UnderscoreRenderer = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @lends Jii.view.underscore.UnderscoreRenderer.prototype */{
 
     __extends: IRenderer,
 
@@ -237,3 +237,5 @@ module.exports = Jii.defineClass('Jii.view.underscore.UnderscoreRenderer', /** @
     }
 
 });
+
+module.exports = UnderscoreRenderer;

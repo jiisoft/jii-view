@@ -13,7 +13,7 @@ var React = require('react');
  * @class Jii.view.react.form.ActiveField
  * @extends Jii.view.react.ReactView
  */
-module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.form.ActiveField.prototype */{
+var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends Jii.view.react.form.ActiveField.prototype */{
 
     __extends: ReactView,
 
@@ -30,7 +30,7 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
             form: React.PropTypes.object.isRequired,
 
             /**
-             * @type {Jii.base.ActiveRecord}
+             * @type {Jii.base.BaseActiveRecord}
              */
             model: React.PropTypes.object.isRequired
         },
@@ -434,3 +434,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends J
     }
 
 });
+
+module.exports = ActiveField;

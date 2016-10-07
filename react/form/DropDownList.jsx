@@ -10,7 +10,7 @@ var React = require('react');
  * @class Jii.view.react.form.DropDownList
  * @extends ActiveField
  */
-module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends Jii.view.react.form.DropDownList.prototype */{
+var DropDownList = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends Jii.view.react.form.DropDownList.prototype */{
 
     __extends: ActiveField,
 
@@ -78,3 +78,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lends 
     }
 
 });
+
+module.exports = DropDownList;

@@ -16,7 +16,7 @@ var React = require('react');
  * @extends Jii.base.Object
  * @extends React.Component
  */
-var self = module.exports = Jii.defineClass('Jii.view.react.ReactView', /** @lends Jii.view.react.ReactView.prototype */{
+var ReactView = Jii.defineClass('Jii.view.react.ReactView', /** @lends Jii.view.react.ReactView.prototype */{
 
     __extends: React.Component,
 
@@ -132,5 +132,7 @@ var self = module.exports = Jii.defineClass('Jii.view.react.ReactView', /** @len
 
 });
 
-_extend(self.__static, Object.__static);
-_extend(self.prototype, Object.prototype);
+_extend(ReactView.__static, Object.__static);
+_extend(ReactView.prototype, Object.prototype);
+
+module.exports = ReactView;

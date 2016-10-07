@@ -28,7 +28,7 @@ var IRenderer = require('../IRenderer');
  * @class Jii.view.react.ReactRenderer
  * @extends Jii.view.IRenderer
  */
-module.exports = Jii.defineClass('Jii.view.react.ReactRenderer', /** @lends Jii.view.react.ReactRenderer.prototype */{
+var ReactRenderer = Jii.defineClass('Jii.view.react.ReactRenderer', /** @lends Jii.view.react.ReactRenderer.prototype */{
 
     __extends: IRenderer,
 
@@ -103,3 +103,5 @@ module.exports = Jii.defineClass('Jii.view.react.ReactRenderer', /** @lends Jii.
     }
 
 });
+
+module.exports = ReactRenderer;

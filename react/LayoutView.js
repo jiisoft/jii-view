@@ -7,7 +7,7 @@ var ReactView = require('./ReactView');
  * @class Jii.view.react.LayoutView
  * @extends Jii.view.react.ReactView
  */
-module.exports = Jii.defineClass('Jii.view.react.LayoutView', /** @lends Jii.view.react.LayoutView.prototype */{
+var LayoutView = Jii.defineClass('Jii.view.react.LayoutView', /** @lends Jii.view.react.LayoutView.prototype */{
 
     __extends: ReactView,
 
@@ -21,3 +21,5 @@ module.exports = Jii.defineClass('Jii.view.react.LayoutView', /** @lends Jii.vie
     }
 
 });
+
+module.exports = LayoutView;

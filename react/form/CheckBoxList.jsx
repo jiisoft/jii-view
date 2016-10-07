@@ -13,7 +13,7 @@ var React = require('react');
  * @class Jii.view.react.form.CheckBoxList
  * @extends ActiveField
  */
-module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends Jii.view.react.form.CheckBoxList.prototype */{
+var CheckBoxList = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends Jii.view.react.form.CheckBoxList.prototype */{
 
     __extends: ActiveField,
 
@@ -107,3 +107,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lends 
     }
 
 });
+
+module.exports = CheckBoxList;

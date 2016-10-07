@@ -19,7 +19,7 @@ var Component = require('jii/base/Component');
  * @class Jii.view.View
  * @extends Jii.base.Component
  */
-module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.prototype */{
+var View = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.prototype */{
 
 	__extends: Component,
 
@@ -151,3 +151,5 @@ module.exports = Jii.defineClass('Jii.view.View', /** @lends Jii.view.View.proto
 	}
 
 });
+
+module.exports = View;

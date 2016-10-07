@@ -8,7 +8,7 @@ var React = require('react');
  * @class Jii.view.react.form.CheckBox
  * @extends Jii.view.react.form.ActiveField
  */
-module.exports = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.view.react.form.CheckBox.prototype */{
+var CheckBox = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.view.react.form.CheckBox.prototype */{
 
     __extends: ActiveField,
 
@@ -64,3 +64,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.
     }
 
 });
+
+module.exports = CheckBox;

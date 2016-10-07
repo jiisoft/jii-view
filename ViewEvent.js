@@ -14,7 +14,7 @@ var Event = require('jii/base/Event');
  * @class Jii.view.ViewEvent
  * @extends Jii.base.Event
  */
-module.exports = Jii.defineClass('Jii.view.ViewEvent', /** @lends Jii.view.ViewEvent.prototype */{
+var ViewEvent = Jii.defineClass('Jii.view.ViewEvent', /** @lends Jii.view.ViewEvent.prototype */{
 
 	__extends: Event,
 
@@ -44,3 +44,5 @@ module.exports = Jii.defineClass('Jii.view.ViewEvent', /** @lends Jii.view.ViewE
 	isValid: true
 
 });
+
+module.exports = ViewEvent;

@@ -9,7 +9,7 @@ var React = require('react');
  * @class Jii.view.react.form.Button
  * @extends Jii.view.react.ReactView
  */
-module.exports = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.view.react.form.Button.prototype */{
+var Button = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.view.react.form.Button.prototype */{
 
     __extends: ReactView,
 
@@ -93,3 +93,5 @@ module.exports = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.vi
     }
 
 });
+
+module.exports = Button;
