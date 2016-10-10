@@ -35,9 +35,6 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             model: React.PropTypes.object.isRequired
         },
 
-        /**
-         * @alias {Jii.view.react.form.ActiveField.prototype.props}
-         */
         propTypes: {
 
             /**
