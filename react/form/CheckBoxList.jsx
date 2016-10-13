@@ -102,7 +102,7 @@ var CheckBoxList = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lend
         values = _uniq(values);
 
         this.setState({value: values});
-        this.validateValue(values);
+        this.validateValue(values, e);
         this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, values);
     }
 

@@ -75,7 +75,7 @@ var Input = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.rea
         let value = e.target.value;
 
         this.setState({value: value});
-        this.validateValue(value, false);
+        this.validateValue(value, e);
         this.props.inputOptions.onBlur && this.props.inputOptions.onBlur(e);
     },
 
@@ -83,7 +83,7 @@ var Input = Jii.defineClass('Jii.view.react.form.Input', /** @lends Jii.view.rea
         let value = e.target.value;
 
         this.setState({value: value});
-        this.validateValue(value, true);
+        this.validateValue(value, e);
         this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 

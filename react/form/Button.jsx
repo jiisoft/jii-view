@@ -23,7 +23,12 @@ var Button = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.view.r
             /**
              * @type {Jii.view.react.form.ActiveForm}
              */
-            form: React.PropTypes.object.isRequired
+            form: React.PropTypes.object.isRequired,
+
+            /**
+             * @type {string}
+             */
+            layout: React.PropTypes.string,
 
         },
 
@@ -36,7 +41,9 @@ var Button = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.view.r
 
             options: React.PropTypes.object,
 
-            inputOptions: React.PropTypes.object
+            inputOptions: React.PropTypes.object,
+
+            layout: React.PropTypes.string,
 
         },
 
@@ -50,10 +57,16 @@ var Button = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.view.r
 
             inputOptions: {
                 className: 'btn btn-default'
-            }
+            },
+
+            layout: null,
 
         }
 
+    },
+
+    getLayout() {
+        return this.props.layout || this.context.layout || this.context.form.props.layout;
     },
 
     render() {
@@ -63,7 +76,7 @@ var Button = Jii.defineClass('Jii.view.react.form.Button', /** @lends Jii.view.r
             >
                 <div
                     className={
-                        this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL ?
+                        this.getLayout() === ActiveForm.LAYOUT_HORIZONTAL ?
                             'col-sm-offset-' +  + this.context.form.props.cols[0] + ' col-sm-' + this.context.form.props.cols[1] :
                             ''
                     }

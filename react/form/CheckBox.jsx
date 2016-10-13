@@ -59,7 +59,7 @@ var CheckBox = Jii.defineClass('Jii.view.react.form.CheckBox', /** @lends Jii.vi
         let value = e.target.checked;
 
         this.setState({value: value});
-        this.validateValue(value);
+        this.validateValue(value, e);
         this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 

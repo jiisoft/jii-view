@@ -40,7 +40,7 @@ var TextArea = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.vi
         let value = e.target.value;
 
         this.setState({value: value});
-        this.validateValue(value);
+        this.validateValue(value, e);
         this.props.inputOptions.onBlur && this.props.inputOptions.onBlur(e);
     },
 
@@ -48,7 +48,7 @@ var TextArea = Jii.defineClass('Jii.view.react.form.TextArea', /** @lends Jii.vi
         let value = e.target.value;
 
         this.setState({value: value});
-        this.validateValue(value, true);
+        this.validateValue(value, e);
         this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 

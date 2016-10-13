@@ -6,6 +6,7 @@ var NotSupportedException = require('jii/exceptions/NotSupportedException');
 var InvalidParamException = require('jii/exceptions/InvalidParamException');
 var _isEmpty = require('lodash/isEmpty');
 var _indexOf = require('lodash/indexOf');
+var _isObject = require('lodash/isObject');
 var ReactView = require('../ReactView');
 var React = require('react');
 
@@ -32,7 +33,13 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             /**
              * @type {Jii.base.BaseActiveRecord}
              */
-            model: React.PropTypes.object.isRequired
+            model: React.PropTypes.object.isRequired,
+
+            /**
+             * @type {string}
+             */
+            layout: React.PropTypes.string,
+
         },
 
         propTypes: {
@@ -124,7 +131,9 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
              * and [[validateOnType]] is set true.
              * If not set, it will take the value of [[ActiveForm.validationDelay]].
              */
-            validationDelay: React.PropTypes.number
+            validationDelay: React.PropTypes.number,
+
+            layout: React.PropTypes.string,
         },
 
         defaultProps: {
@@ -139,7 +148,8 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             enableValidation: true,
             validateOnChange: null,
             validateOnType: null,
-            validationDelay: null
+            validationDelay: null,
+            layout: null,
         }
 
     },
@@ -155,6 +165,10 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
         this.state.value = this.getModelValue() || '';
     },
 
+    getLayout() {
+        return this.props.layout || this.context.layout || this.context.form.props.layout;
+    },
+
     render() {
         return (
             <div
@@ -165,7 +179,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
                     this.hasSuccess() && this.context.form.props.successCssClass || ''
                 ].join(' ')}
             >
-                {this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL ?
+                {this.getLayout() === ActiveForm.LAYOUT_HORIZONTAL ?
                     <span>
                         {this.renderLabel()}
                         {this.renderWrapper(
@@ -191,7 +205,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
      * @returns {React.Component}
      */
     renderInput() {
-        throw new NotSupportedException('ActiveField is abstract class, renderField is not implemented.');
+        return this.props.children;
     },
 
     renderLabel() {
@@ -228,7 +242,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
     },
 
     renderError() {
-        if (this.context.form.props.layout === ActiveForm.LAYOUT_INLINE) {
+        if (this.getLayout() === ActiveForm.LAYOUT_INLINE) {
             return null;
         }
 
@@ -237,7 +251,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             return null;
         }
 
-        if (this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL) {
+        if (this.getLayout() === ActiveForm.LAYOUT_HORIZONTAL) {
             return (
                 <div
                     {...this.props.errorOptions}
@@ -271,7 +285,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             return null;
         }
 
-        if (this.context.form.props.layout === ActiveForm.LAYOUT_HORIZONTAL) {
+        if (this.getLayout() === ActiveForm.LAYOUT_HORIZONTAL) {
             return (
                 <div
                     {...this.props.hintOptions}
@@ -316,7 +330,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
     },
 
     _getLayoutOption(horizontal, inline, def) {
-        switch (this.context.form.props.layout) {
+        switch (this.getLayout()) {
             case ActiveForm.LAYOUT_HORIZONTAL:
                 return horizontal;
             case ActiveForm.LAYOUT_INLINE:
@@ -328,16 +342,16 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
     /**
      *
      * @param {*} value
-     * @param {boolean} isTypeChange
+     * @param {object} event
      */
-    validateValue(value, isTypeChange) {
-        if (isTypeChange) {
+    validateValue(value, event) {
+        if (_isObject(event) && (event.type || '').indexOf('key') === 0) {
             var isTypeEnable = this.props.validateOnType !== null ? this.props.validateOnType : this.context.form.props.validateOnType;
             if (!isTypeEnable) {
                 return;
             }
 
-            if (_indexOf([9, 16, 17, 18, 20, 37, 38, 39, 40, 91], e.which) !== -1 ) {
+            if (_indexOf([9, 16, 17, 18, 20, 37, 38, 39, 40, 91], event.which) !== -1 ) {
                 return;
             }
 

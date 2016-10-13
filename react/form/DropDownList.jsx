@@ -73,7 +73,7 @@ var DropDownList = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lend
         let value = e.target.value;
 
         this.setState({value: value});
-        this.validateValue(value);
+        this.validateValue(value, e);
         this.props.inputOptions.onChange && this.props.inputOptions.onChange(e, value);
     }
 
