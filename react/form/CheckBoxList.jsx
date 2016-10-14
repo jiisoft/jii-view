@@ -2,12 +2,15 @@
 
 var Jii = require('jii');
 var _isObject = require('lodash/isObject');
+var _isString = require('lodash/isString');
+var _has = require('lodash/has');
 var _indexOf = require('lodash/indexOf');
 var _map = require('lodash/map');
 var _filter = require('lodash/filter');
 var _uniq = require('lodash/uniq');
 var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
+var DropDownList = require('./DropDownList.jsx');
 
 /**
  * @class Jii.view.react.form.CheckBoxList
@@ -35,7 +38,7 @@ var CheckBoxList = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lend
             items: React.PropTypes.oneOfType([
                 React.PropTypes.object,
                 React.PropTypes.array
-            ])
+            ]),
 
         }),
 
@@ -56,22 +59,20 @@ var CheckBoxList = Jii.defineClass('Jii.view.react.form.CheckBoxList', /** @lend
             <div
                 id={this._getInputId()}
             >
-                {_map(this.props.items, this.renderItem.bind(this))}
+                {_map(DropDownList.normalizeItems(this.props.items), this.renderItem.bind(this))}
             </div>
         );
     },
 
-    renderItem(item, value) {
-        let isDisabled = _isObject(item) && item.disabled ? true : false
-        let label = _isObject(item) && item.label || item || '';
+    renderItem(item) {
 
         if (this.props.inline) {
-            return this.renderItemLabel(label, value, isDisabled);
+            return this.renderItemLabel(item.label, item.value, item.disabled);
         }
 
         return (
-            <div className={'checkbox' + (isDisabled ? ' disabled' : '')} key={value}>
-                {this.renderItemLabel(label, value, isDisabled)}
+            <div className={'checkbox' + (item.disabled ? ' disabled' : '')} key={item.value}>
+                {this.renderItemLabel(item.label, item.value, item.disabled)}
             </div>
         );
     },

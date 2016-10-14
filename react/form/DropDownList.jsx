@@ -3,6 +3,9 @@
 var Jii = require('jii');
 var _isObject = require('lodash/isObject');
 var _map = require('lodash/map');
+var _each = require('lodash/each');
+var _has = require('lodash/has');
+var _isString = require('lodash/isString');
 var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
 
@@ -27,13 +30,39 @@ var DropDownList = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lend
             items: React.PropTypes.oneOfType([
                 React.PropTypes.object,
                 React.PropTypes.array
-            ])
+            ]),
 
         }),
 
         defaultProps: Jii.mergeConfigs(ActiveField.defaultProps, {
             items: []
-        })
+        }),
+
+        normalizeItems(items) {
+            const result = [];
+            _each(items, (item, value) => {
+                let isDisabled = false;
+                let label = '';
+
+                if (_isObject(item)) {
+                    label = item.label || '';
+                    isDisabled = !!item.disabled;
+
+                    if (_has(item, 'value')) {
+                        value = item.value;
+                    }
+                } else if (_isString(item)) {
+                    label = item
+                }
+
+                result.push({
+                    label: label,
+                    value: value,
+                    disabled: isDisabled,
+                });
+            });
+            return result;
+        },
 
     },
 
@@ -55,15 +84,14 @@ var DropDownList = Jii.defineClass('Jii.view.react.form.DropDownList', /** @lend
                 onChange={this._onChange}
                 value={this.state.value || ''}
             >
-                {_map(this.props.items, (item, value) => {
-                    let label = _isObject(item) && item.label || item || '';
+                {_map(this.__static.normalizeItems(this.props.items), item => {
                     let optionProps = {
-                        key: value,
-                        value: value,
-                        disabled: _isObject(item) && item.disabled ? true : false
+                        key: item.value,
+                        value: item.value,
+                        disabled: item.value.disabled
                     };
 
-                    return <option {...optionProps}>{label}</option>
+                    return <option {...optionProps}>{item.label}</option>
                 })}
             </select>
         );

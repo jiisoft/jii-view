@@ -5,6 +5,7 @@ var _isObject = require('lodash/isObject');
 var _map = require('lodash/map');
 var ActiveField = require('./ActiveField.jsx');
 var React = require('react');
+var DropDownList = require('./DropDownList.jsx');
 
 /**
  * @class Jii.view.react.form.RadioList
@@ -32,14 +33,14 @@ var RadioList = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii.
             items: React.PropTypes.oneOfType([
                 React.PropTypes.object,
                 React.PropTypes.array
-            ])
+            ]),
 
         }),
 
         defaultProps: Jii.mergeConfigs(ActiveField.defaultProps, {
             inline: false,
             items: []
-        })
+        }),
 
     },
 
@@ -53,22 +54,19 @@ var RadioList = Jii.defineClass('Jii.view.react.form.RadioList', /** @lends Jii.
             <div
                 id={this._getInputId()}
             >
-                {_map(this.props.items, this.renderItem.bind(this))}
+                {_map(DropDownList.normalizeItems(this.props.items), this.renderItem.bind(this))}
             </div>
         );
     },
 
-    renderItem(item, value) {
-        let isDisabled = _isObject(item) && item.disabled ? true : false
-        let label = _isObject(item) && item.label || item || '';
-
+    renderItem(item) {
         if (this.props.inline) {
-            return this.renderItemLabel(label, value, isDisabled);
+            return this.renderItemLabel(item.label, item.value, item.disabled);
         }
 
         return (
-            <div className={'radio' + (isDisabled ? ' disabled' : '')} key={value}>
-                {this.renderItemLabel(label, value, isDisabled)}
+            <div className={'radio' + (item.disabled ? ' disabled' : '')} key={item.value}>
+                {this.renderItemLabel(item.label, item.value, item.disabled)}
             </div>
         );
     },

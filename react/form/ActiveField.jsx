@@ -55,6 +55,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             label: React.PropTypes.oneOfType([
                 React.PropTypes.bool,
                 React.PropTypes.string,
+                React.PropTypes.element,
             ]),
 
             /**
