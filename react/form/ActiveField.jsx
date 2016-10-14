@@ -50,6 +50,14 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
             attribute: React.PropTypes.string.isRequired,
 
             /**
+             * @type {string}
+             */
+            label: React.PropTypes.oneOfType([
+                React.PropTypes.bool,
+                React.PropTypes.string,
+            ]),
+
+            /**
              * @type {object} the HTML attributes (name-value pairs) for the field container tag.
              * The values will be HTML-encoded using [[Html.encode()]].
              * If a value is null, the corresponding attribute will not be rendered.
@@ -137,9 +145,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
         },
 
         defaultProps: {
-            options: {
-                className: 'form-group'
-            },
+            options: {},
             wrapperOptions: {},
             inputOptions: {},
             errorOptions: {},
@@ -170,11 +176,30 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
     },
 
     render() {
+        if (this.getLayout() === ActiveForm.LAYOUT_INLINE) {
+            return (
+                <span
+                    {...this.props.options}
+                    className={[
+                        this.props.options.className || '',
+                        this.hasError() && this.context.form.props.errorCssClass || '',
+                        this.hasSuccess() && this.context.form.props.successCssClass || ''
+                    ].join(' ')}
+                >
+                    {this.renderLabel()}
+                    {this.renderInput()}
+                    {this.renderHint()}
+                    {this.renderError()}
+                </span>
+            );
+        }
+
         return (
             <div
                 {...this.props.options}
                 className={[
                     this.props.options.className || '',
+                    'form-group',
                     this.hasError() && this.context.form.props.errorCssClass || '',
                     this.hasSuccess() && this.context.form.props.successCssClass || ''
                 ].join(' ')}
@@ -209,6 +234,10 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
     },
 
     renderLabel() {
+        if (this.props.label === false) {
+            return null;
+        }
+
         return (
             <label
                 {...this.props.labelOptions}
@@ -222,7 +251,7 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
                 ].join(' ')}
                 htmlFor={this._getInputId()}
             >
-                {this.context.model.getAttributeLabel(this._getAttributeName())}
+                {this.props.label || this.context.model.getAttributeLabel(this._getAttributeName())}
             </label>
         );
     },
@@ -233,7 +262,8 @@ var ActiveField = Jii.defineClass('Jii.view.react.form.ActiveField', /** @lends 
                 {...this.props.wrapperOptions}
                 className={[
                     this.props.wrapperOptions.className || '',
-                    'col-sm-' + this.context.form.props.cols[1]
+                    'col-sm-' + this.context.form.props.cols[1],
+                    this.props.label === false ? ' col-sm-offset-' + this.context.form.props.cols[0] : ''
                 ].join(' ')}
             >
                 {children}
