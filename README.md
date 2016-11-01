@@ -1,8 +1,2 @@
 # jii-view
-View implementation for server and client
-
-### Install
-
-```sh
-npm install jii jii-view
-```
+Deprecated. Package separated to jii and jii-react.

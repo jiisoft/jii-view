@@ -1,32 +1,11 @@
 {
   "name": "jii-view",
   "version": "0.14.0",
-  "description": "Jii view",
   "main": "index.js",
   "browser": "index-client.js",
   "author": "Vladimir Kozhin <affka@affka.ru>",
-  "scripts": {
-    "test": "nodeunit tests/unit"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jiisoft/jii-view"
-  },
-  "keywords": [
-    "yii",
-    "php",
-    "framework",
-    "javascript"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/jiisoft/jii-view",
-  "bugs": {
-    "url": "https://github.com/jiisoft/jii-view/issues"
-  },
-  "dependencies": {
-    "lodash": "^4.15.0",
-    "node-jsx": "*",
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
   }
 }
